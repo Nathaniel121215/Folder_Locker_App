@@ -13,6 +13,8 @@ namespace WindowsFormsApp1
         public string Password { get; set; }
         public string Number { get; set; }
         public string Date_Added { get; set; }
+
+        public string Email { get; set; }
         public string UserLevel { get; set; }
         
     }

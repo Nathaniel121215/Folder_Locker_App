@@ -41,6 +41,7 @@ namespace WindowsFormsApp1
             usertxt.Text = Folderlocker_Form.LOGINUSER;
             passtxt.Text = Folderlocker_Form.LOGINPASS;
             numbertxt.Text = Folderlocker_Form.LOGINNUMBER;
+            emailtxt.Text = Folderlocker_Form.LOGINEMAIL;
         }
 
         private void bunifuImageButton4_Click(object sender, EventArgs e)
@@ -62,6 +63,7 @@ namespace WindowsFormsApp1
                         Password = passtxt.Text,
                         Number = numbertxt.Text,
                         Date_Added = Folderlocker_Form.LOGINDATE,
+                        Email = emailtxt.Text,
                         UserLevel = Folderlocker_Form.LOGINLEVEL,
 
                     };

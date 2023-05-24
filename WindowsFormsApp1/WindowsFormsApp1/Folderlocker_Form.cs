@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,8 @@ namespace WindowsFormsApp1
         public static string LOGINPASS { get; set; }
         public static string LOGINNUMBER { get; set; }
         public static string LOGINDATE { get; set; }
-
+        public static string LOGINEMAIL { get; set; }
+        
         public static string LOGINLEVEL { get; set; }
 
         DataTable dt = new DataTable();
@@ -233,6 +235,31 @@ namespace WindowsFormsApp1
 
                 while (i <= cnt)
                 {
+                    try
+                    {
+                        //Account DB
+                        FirebaseResponse resp1 = _firebaseClient.Get("Folders/" + i);
+                        Folder_Class obj2 = resp1.ResultAs<Folder_Class>();
+
+                        if (folderBrowserDialog1.SelectedPath == obj2.Folder_Path)
+                        {
+                            MessageBox.Show("Folder Already Exist in the Database.");
+                            break;
+
+                        }
+                        else
+                        {
+
+
+                        }
+
+                    }
+                    catch
+                    {
+
+                    }
+
+
                     if (i == cnt)
                     {
                         var data = new Folder_Class
@@ -257,35 +284,45 @@ namespace WindowsFormsApp1
                         SetResponse response1 = _firebaseClient.Set("Folder_Counter/node", obj);
 
 
+                        //////////////////////////////////////
+                        ///
+
+                        FirebaseResponse resp1 = _firebaseClient.Get("Log_Counter/node");
+                        Account_Counter_Number get1 = resp.ResultAs<Account_Counter_Number>();
+
+                        var data1 = new Log_Class
+                        {
+                            Log_ID = (Convert.ToInt32(get.cnt) + 1).ToString(),
+                            Action = "Added New Folder Named: " + folderName,
+                            Module = "Folder Locker Module",
+                            Date_Added = DateTime.Now.ToString("dd/MM/yyyy hh:mm tt"),
+                            Username = folder_username,
+                        };
+
+                        SetResponse response2 = _firebaseClient.Set("Logs/" + data1.Log_ID, data1);
+                        User_Class result1 = response.ResultAs<User_Class>();
+
+                        var obj1 = new Account_Counter_Number
+                        {
+                            cnt = data1.Log_ID
+                        };
+
+                        SetResponse response3= _firebaseClient.Set("Log_Counter/node", obj);
+
+
+
+
+                        ///////////////////////////////////////
+
+
+
                         dataview();
 
                         break;
 
                     }
                     i++;
-                    try
-                    {
-                        //Account DB
-                        FirebaseResponse resp1 = _firebaseClient.Get("Folders/" + i);
-                        Folder_Class obj2 = resp1.ResultAs<Folder_Class>();
-
-                        if (folderBrowserDialog1.SelectedPath == obj2.Folder_Path)
-                        {
-                            MessageBox.Show("Folder Already Exist in the Database.");
-                            break;
-
-                        }
-                        else
-                        {
-                            
-
-                        }
-
-                    }
-                    catch
-                    {
-
-                    }
+                    
                 }
 
 
@@ -297,8 +334,11 @@ namespace WindowsFormsApp1
         public async void dataview()
         {
 
+            DataGridViewColumn column0 = Folder_Datagrid.Columns[0];
+            column0.Width = 100;
+            DataGridViewColumn column1 = Folder_Datagrid.Columns[1];
+            column1.Width = 230;
 
-  
 
 
             foreach (DataGridViewColumn column in Folder_Datagrid.Columns)
@@ -338,7 +378,8 @@ namespace WindowsFormsApp1
 
                     dt.Rows.Add(r);
 
-
+                    DataView dv = dt.DefaultView;
+                    dv.RowFilter = $"Username = '{LOGINUSER}'";
                 }
 
                 catch
@@ -349,32 +390,11 @@ namespace WindowsFormsApp1
 
             }
 
-            DataView dv = dt.DefaultView;
-            dv.RowFilter = $"Username = '{LOGINUSER}'";
+            
 
-            Folder_Datagrid.DataSource = null;
-            Folder_Datagrid.Rows.Clear();
-            Folder_Datagrid.Columns.Clear();
-            Folder_Datagrid.DataSource = dv;
 
-            DataGridViewImageColumn lockk = new DataGridViewImageColumn();
-            Folder_Datagrid.Columns.Add(lockk);
-            lockk.HeaderText = "";
-            lockk.Name = "lock";
-            lockk.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            lockk.Image = Properties.Resources.newlock_button;
 
-            DataGridViewImageColumn unlockk = new DataGridViewImageColumn();
-            Folder_Datagrid.Columns.Add(unlockk);
-            unlockk.HeaderText = "";
-            unlockk.Name = "unlock";
-            unlockk.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            unlockk.Image = Properties.Resources.newunlock_button;
 
-            DataGridViewColumn column0 = Folder_Datagrid.Columns[0];
-            column0.Width = 100;
-            DataGridViewColumn column1 = Folder_Datagrid.Columns[1];
-            column1.Width = 230;
 
 
 
@@ -409,6 +429,35 @@ namespace WindowsFormsApp1
                     Otp_Form.FOLDER_USERNAME = folder_username;
                     Otp_Form.FOLDER_USER_NUMBER = LOGINNUMBER;
                     Otp_Form.OPERATION = "LOCK";
+
+                    //////////////////////////////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////////////////////////////////////
+                    
+                    FirebaseResponse resp = _firebaseClient.Get("Log_Counter/node");
+                    Account_Counter_Number get = resp.ResultAs<Account_Counter_Number>();
+
+                    var data = new Log_Class
+                    {
+                        Log_ID = (Convert.ToInt32(get.cnt) + 1).ToString(),
+                        Action = "Locked Folder Name: "+ folder_name,
+                        Module = "Folder Locker Module",
+                        Date_Added = DateTime.Now.ToString("dd/MM/yyyy hh:mm tt"),
+                        Username = folder_username,
+                    };
+
+                    SetResponse response = _firebaseClient.Set("Logs/" + data.Log_ID, data);
+                    User_Class result = response.ResultAs<User_Class>();
+
+                    var obj = new Account_Counter_Number
+                    {
+                        cnt = data.Log_ID
+                    };
+
+                    SetResponse response1 = _firebaseClient.Set("Log_Counter/node", obj);
+
+
+                    //////////////////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -454,6 +503,36 @@ namespace WindowsFormsApp1
                     Otp_Form.FOLDER_USER_NUMBER = LOGINNUMBER;
                     Otp_Form.OPERATION = "UNLOCK";
 
+
+
+                    //////////////////////////////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////////////////////////////////////
+
+                    FirebaseResponse resp = _firebaseClient.Get("Log_Counter/node");
+                    Account_Counter_Number get = resp.ResultAs<Account_Counter_Number>();
+
+                    var data = new Log_Class
+                    {
+                        Log_ID = (Convert.ToInt32(get.cnt) + 1).ToString(),
+                        Action = "Unlocked Folder Name: " + folder_name,
+                        Module = "Folder Locker Module",
+                        Date_Added = DateTime.Now.ToString("dd/MM/yyyy hh:mm tt"),
+                        Username = folder_username,
+                    };
+
+                    SetResponse response = _firebaseClient.Set("Logs/" + data.Log_ID, data);
+                    User_Class result = response.ResultAs<User_Class>();
+
+                    var obj = new Account_Counter_Number
+                    {
+                        cnt = data.Log_ID
+                    };
+
+                    SetResponse response1 = _firebaseClient.Set("Log_Counter/node", obj);
+
+
+                    //////////////////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

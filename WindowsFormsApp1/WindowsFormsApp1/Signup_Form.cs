@@ -38,7 +38,7 @@ namespace WindowsFormsApp1
         public static string pass2;
         public static string number;
         public static string dateadded;
-
+        public static string email;
         public static string status;
 
 
@@ -64,7 +64,7 @@ namespace WindowsFormsApp1
 
         private void bunifuImageButton3_Click(object sender, EventArgs e)
         {
-            if (usertxt.Text != "" && passtxt.Text != "" && passtxt2.Text != "" && phonenumbertxt.Text != "" && passtxt.Text == passtxt2.Text)
+            if (usertxt.Text != "" && passtxt.Text != "" && passtxt2.Text != "" && phonenumbertxt.Text != "" && passtxt.Text == passtxt2.Text && emailaddresstxt.Text != "")
             {
                 if (MessageBox.Show("Please confirm before proceeding" + "\n" + "Do you want to Continue ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 
@@ -79,6 +79,7 @@ namespace WindowsFormsApp1
                     pass2 = passtxt2.Text;
                     number = phonenumbertxt.Text;
                     dateadded = date;
+                    email = emailaddresstxt.Text;
 
                     Otp_Form a = new Otp_Form();
 
@@ -86,6 +87,7 @@ namespace WindowsFormsApp1
                     Otp_Form.PASS = pass;
                     Otp_Form.NUMBER = number;
                     Otp_Form.DATE = dateadded;
+                    Otp_Form.EMAIL = email;
                     Otp_Form.LEVEL = "User";
 
                     Otp_Form.OPERATION = "SIGNUP";

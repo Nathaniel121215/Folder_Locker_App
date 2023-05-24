@@ -31,6 +31,7 @@ namespace WindowsFormsApp1
         public static string loginpass;
         public static string loginnumber;
         public static string logindateadded;
+        public static string loginemail;
         public static string loginlevel;
 
         public Form1()
@@ -44,6 +45,9 @@ namespace WindowsFormsApp1
             _firebaseClient = new FireSharp.FirebaseClient(_config);
 
             bunifuCustomLabel1.Select();
+
+
+
 
 
             //string phoneNumber = "+639550961345"; // Replace with the user's phone number
@@ -130,6 +134,7 @@ namespace WindowsFormsApp1
                                 loginpass = passtxt.Text;
                                 logindateadded = obj2.Date_Added;
                                 loginnumber = obj2.Number;
+                                loginemail = obj2.Email;
                                 loginlevel = obj2.UserLevel;
 
                                 //MessageBox.Show("Logged in successfully");
@@ -141,6 +146,7 @@ namespace WindowsFormsApp1
                                 Otp_Form.LOGINPASS = loginpass;
                                 Otp_Form.LOGINNUMBER = loginnumber;
                                 Otp_Form.LOGINDATE = logindateadded;
+                                Otp_Form.LOGINEMAIL = loginemail;
                                 Otp_Form.LEVEL = loginlevel;
                                 Otp_Form.OPERATION = "LOGIN";
                                 Otp_Form a = new Otp_Form();
@@ -233,6 +239,18 @@ namespace WindowsFormsApp1
             Forgotpassword_Form a = new Forgotpassword_Form();
             this.Hide();
             a.Show();
+        }
+
+        private void bunifuCustomLabel2_Click(object sender, EventArgs e)
+        {
+            Forgotpassword_Form a = new Forgotpassword_Form();
+            this.Hide();
+            a.Show();
+        }
+
+        private void bunifuCustomLabel2_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

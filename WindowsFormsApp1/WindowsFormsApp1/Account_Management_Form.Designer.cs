@@ -45,6 +45,8 @@
             this.passtxt = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label3 = new System.Windows.Forms.Label();
             this.numbertxt = new Bunifu.Framework.UI.BunifuMetroTextbox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.emailtxt = new Bunifu.Framework.UI.BunifuMetroTextbox();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton4)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +87,7 @@
             this.bunifuFlatButton2.IconVisible = true;
             this.bunifuFlatButton2.IconZoom = 90D;
             this.bunifuFlatButton2.IsTab = false;
-            this.bunifuFlatButton2.Location = new System.Drawing.Point(37, 346);
+            this.bunifuFlatButton2.Location = new System.Drawing.Point(37, 427);
             this.bunifuFlatButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bunifuFlatButton2.Name = "bunifuFlatButton2";
             this.bunifuFlatButton2.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(115)))), ((int)(((byte)(225)))));
@@ -122,7 +124,7 @@
             this.bunifuFlatButton1.IconVisible = true;
             this.bunifuFlatButton1.IconZoom = 90D;
             this.bunifuFlatButton1.IsTab = false;
-            this.bunifuFlatButton1.Location = new System.Drawing.Point(183, 346);
+            this.bunifuFlatButton1.Location = new System.Drawing.Point(183, 427);
             this.bunifuFlatButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bunifuFlatButton1.Name = "bunifuFlatButton1";
             this.bunifuFlatButton1.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(75)))), ((int)(((byte)(182)))));
@@ -191,7 +193,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(75)))), ((int)(((byte)(182)))));
-            this.panel1.Location = new System.Drawing.Point(-2, 417);
+            this.panel1.Location = new System.Drawing.Point(-2, 489);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(369, 14);
             this.panel1.TabIndex = 393;
@@ -272,12 +274,41 @@
             this.numbertxt.TabIndex = 401;
             this.numbertxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(34, 335);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 15);
+            this.label1.TabIndex = 404;
+            this.label1.Text = "Email Address:";
+            // 
+            // emailtxt
+            // 
+            this.emailtxt.BorderColorFocused = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(75)))), ((int)(((byte)(182)))));
+            this.emailtxt.BorderColorIdle = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.emailtxt.BorderColorMouseHover = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(75)))), ((int)(((byte)(182)))));
+            this.emailtxt.BorderThickness = 1;
+            this.emailtxt.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.emailtxt.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.emailtxt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.emailtxt.isPassword = false;
+            this.emailtxt.Location = new System.Drawing.Point(37, 359);
+            this.emailtxt.Margin = new System.Windows.Forms.Padding(4);
+            this.emailtxt.Name = "emailtxt";
+            this.emailtxt.Size = new System.Drawing.Size(281, 36);
+            this.emailtxt.TabIndex = 403;
+            this.emailtxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
             // Account_Management_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(358, 420);
+            this.ClientSize = new System.Drawing.Size(358, 493);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.emailtxt);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.numbertxt);
             this.Controls.Add(this.label2);
@@ -322,5 +353,7 @@
         private System.Windows.Forms.Label label2;
         private Bunifu.Framework.UI.BunifuMetroTextbox passtxt;
         private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton4;
+        private System.Windows.Forms.Label label1;
+        private Bunifu.Framework.UI.BunifuMetroTextbox emailtxt;
     }
 }

@@ -286,6 +286,13 @@
     <Compile Include="LogsModule_Form.Designer.cs">
       <DependentUpon>LogsModule_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Log_Class.cs" />
+    <Compile Include="Newpassword_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Newpassword_Form.Designer.cs">
+      <DependentUpon>Newpassword_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Otp_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LogsModule_Form.resx">
       <DependentUpon>LogsModule_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Newpassword_Form.resx">
+      <DependentUpon>Newpassword_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Otp_Form.resx">
       <DependentUpon>Otp_Form.cs</DependentUpon>

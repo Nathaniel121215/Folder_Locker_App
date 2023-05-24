@@ -185,6 +185,7 @@
             this.Name = "LogsModule_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LogsModule_Form";
+            this.Load += new System.EventHandler(this.LogsModule_Form_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Account_Logo)).EndInit();

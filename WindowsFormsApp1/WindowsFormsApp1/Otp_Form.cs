@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,6 +32,7 @@ namespace WindowsFormsApp1
         public static string PASS { get; set; }
         public static string NUMBER { get; set; }
         public static string DATE { get; set; }
+        public static string EMAIL { get; set; }
         public static string LEVEL { get; set; }
 
 
@@ -41,8 +43,19 @@ namespace WindowsFormsApp1
         public static string LOGINPASS { get; set; }
         public static string LOGINNUMBER { get; set; }
         public static string LOGINDATE { get; set; }
-
+        public static string LOGINEMAIL { get; set; }
         public static string OPERATION { get; set; }
+
+
+
+        public static string FORGOTUSERID { get; set; }
+        public static string FORGOTUSER { get; set; }
+        public static string FORGOTPASS { get; set; }
+        public static string FORGOTNUMBER { get; set; }
+        public static string FORGOTDATE { get; set; }
+        public static string FORGOTEMAIL { get; set; }
+
+
 
         public static string otp ="";
 
@@ -90,7 +103,115 @@ namespace WindowsFormsApp1
             otp = GenerateOTP();
             Console.WriteLine(otp);
 
+            try
+            {
+                if (EMAIL != null && EMAIL != "")
+                {
+                    // Send the OTP to the email address
+                    string email = EMAIL;
+                    string subject = "OTP";
+                    string body = $"Your OTP is: {otp}";
+
+                    // Gmail SMTP server details
+                    string smtpServer = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    string smtpUsername = "folderlocker.otp@gmail.com";
+                    string smtpPassword = "ascjyylxbldqqgtk";
+
+                    // Create and configure the email message
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress(smtpUsername);
+                    message.To.Add(email);
+                    message.Subject = subject;
+                    message.Body = body;
+
+                    // Set up the SMTP client
+                    SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+
+                    // Send the email
+                    smtpClient.Send(message);
+                }
+                else if(LOGINEMAIL != null && LOGINEMAIL != "")
+                {
+
+                    // Send the OTP to the email address
+                    string email = LOGINEMAIL;
+                    string subject = "OTP";
+                    string body = $"Your OTP is: {otp}";
+
+                    // Gmail SMTP server details
+                    string smtpServer = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    string smtpUsername = "folderlocker.otp@gmail.com";
+                    string smtpPassword = "ascjyylxbldqqgtk";
+
+                    // Create and configure the email message
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress(smtpUsername);
+                    message.To.Add(email);
+                    message.Subject = subject;
+                    message.Body = body;
+
+                    // Set up the SMTP client
+                    SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+
+                    // Send the email
+                    smtpClient.Send(message);
+
+                }
+                else
+                {
+
+                    // Send the OTP to the email address
+                    string email = FOLDER_USER_NUMBER;
+                    string subject = "OTP";
+                    string body = $"Your OTP is: {otp}";
+
+                    // Gmail SMTP server details
+                    string smtpServer = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    string smtpUsername = "folderlocker.otp@gmail.com";
+                    string smtpPassword = "ascjyylxbldqqgtk";
+
+                    // Create and configure the email message
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress(smtpUsername);
+                    message.To.Add(email);
+                    message.Subject = subject;
+                    message.Body = body;
+
+                    // Set up the SMTP client
+                    SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+
+                    // Send the email
+                    smtpClient.Send(message);
+
+                }
+                
+
+            }
+            catch
+            {
+
+            }
+
+
             
+
+
+
+
+
+
             if (NUMBER != null)
             {
                 bunifuCustomLabel3.Text = NUMBER;
@@ -98,6 +219,11 @@ namespace WindowsFormsApp1
             else if (LOGINNUMBER != null)
             {
                 bunifuCustomLabel3.Text = LOGINNUMBER;
+            }
+
+            else if (FORGOTNUMBER != null)
+            {
+                bunifuCustomLabel3.Text = FORGOTNUMBER;
             }
             else
             {
@@ -202,6 +328,7 @@ namespace WindowsFormsApp1
                         Password = Signup_Form.pass,
                         Number = Signup_Form.number,
                         Date_Added = Signup_Form.dateadded,
+                        Email = Signup_Form.email,
                         UserLevel = LEVEL,
                     };
 
@@ -241,6 +368,7 @@ namespace WindowsFormsApp1
                     Folderlocker_Form.LOGINPASS = LOGINPASS;
                     Folderlocker_Form.LOGINNUMBER = LOGINNUMBER;
                     Folderlocker_Form.LOGINDATE = LOGINDATE;
+                    Folderlocker_Form.LOGINEMAIL = LOGINEMAIL;
                     Folderlocker_Form.LOGINLEVEL = LEVEL;
 
 
@@ -337,6 +465,28 @@ namespace WindowsFormsApp1
                     MessageBox.Show("File path not found in the computer directory. Deleting Folder Record.");
                 }
             }
+
+            else if (otp != "" && OPERATION == "FORGOT")
+            {
+                if (otp == userinput)
+                {
+
+                    Newpassword_Form a = new Newpassword_Form();
+                    this.Hide();
+                    a.Show();
+
+                }
+
+                else
+                {
+                    MessageBox.Show("Wrong OTP code Entered.");
+                }
+
+
+
+            }
+
+
             else
             {
 
@@ -369,6 +519,138 @@ namespace WindowsFormsApp1
         {
             Random random = new Random();
             return random.Next(1000, 9999).ToString();
+        }
+
+        private void bunifuImageButton2_Click(object sender, EventArgs e)
+        {
+            resend();
+        }
+
+        public void resend()
+        {
+            otp = GenerateOTP();
+            Console.WriteLine(otp);
+
+            try
+            {
+                if (EMAIL != null && EMAIL != "")
+                {
+                    // Send the OTP to the email address
+                    string email = EMAIL;
+                    string subject = "OTP";
+                    string body = $"Your OTP is: {otp}";
+
+                    // Gmail SMTP server details
+                    string smtpServer = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    string smtpUsername = "folderlocker.otp@gmail.com";
+                    string smtpPassword = "ascjyylxbldqqgtk";
+
+                    // Create and configure the email message
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress(smtpUsername);
+                    message.To.Add(email);
+                    message.Subject = subject;
+                    message.Body = body;
+
+                    // Set up the SMTP client
+                    SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+
+                    // Send the email
+                    smtpClient.Send(message);
+                }
+                else if (LOGINEMAIL != null && LOGINEMAIL != "")
+                {
+
+                    // Send the OTP to the email address
+                    string email = LOGINEMAIL;
+                    string subject = "OTP";
+                    string body = $"Your OTP is: {otp}";
+
+                    // Gmail SMTP server details
+                    string smtpServer = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    string smtpUsername = "folderlocker.otp@gmail.com";
+                    string smtpPassword = "ascjyylxbldqqgtk";
+
+                    // Create and configure the email message
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress(smtpUsername);
+                    message.To.Add(email);
+                    message.Subject = subject;
+                    message.Body = body;
+
+                    // Set up the SMTP client
+                    SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+
+                    // Send the email
+                    smtpClient.Send(message);
+
+                }
+                else
+                {
+
+                    // Send the OTP to the email address
+                    string email = FOLDER_USER_NUMBER;
+                    string subject = "OTP";
+                    string body = $"Your OTP is: {otp}";
+
+                    // Gmail SMTP server details
+                    string smtpServer = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    string smtpUsername = "folderlocker.otp@gmail.com";
+                    string smtpPassword = "ascjyylxbldqqgtk";
+
+                    // Create and configure the email message
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress(smtpUsername);
+                    message.To.Add(email);
+                    message.Subject = subject;
+                    message.Body = body;
+
+                    // Set up the SMTP client
+                    SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+
+                    // Send the email
+                    smtpClient.Send(message);
+
+                }
+
+
+            }
+            catch
+            {
+
+            }
+
+
+
+            if (NUMBER != null)
+            {
+                bunifuCustomLabel3.Text = NUMBER;
+            }
+            else if (LOGINNUMBER != null)
+            {
+                bunifuCustomLabel3.Text = LOGINNUMBER;
+            }
+
+            else if (FORGOTNUMBER != null)
+            {
+                bunifuCustomLabel3.Text = FORGOTNUMBER;
+            }
+            else
+            {
+                bunifuCustomLabel3.Text = FOLDER_USER_NUMBER;
+            }
         }
     }
 }
